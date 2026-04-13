@@ -28,7 +28,8 @@ public class StudentController {
     // GET student by ID
     @GetMapping("/{id}")
     public Student getStudentById(@PathVariable Long id) {
-        return studentRepository.findById(id).orElse(null);
+        return studentRepository.findById(id)
+                .orElseThrow(() -> new StudentNotFoundException(id));
     }
 
     // POST - add new student
