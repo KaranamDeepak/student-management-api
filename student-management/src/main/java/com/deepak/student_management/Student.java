@@ -1,20 +1,34 @@
 package com.deepak.student_management;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-@Entity
-@Table(name="Students")
-public class Student{
-@Id
-@GeneratedValue(strategy=GenerationType.IDENTITY)
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
 
-private Long id;
-private String name;
-private String email;
-private String branch;
-private int year;
+@Entity
+@Table(name = "Students")
+public class Student {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    private Long id;
+    @NotBlank(message = "Name cannot be empty")
+    private String name;
+
+    @Email(message = "Invalid email format")
+    @NotBlank(message = "Email cannot be empty")
+    private String email;
+
+    @NotBlank(message = "Branch cannot be empty")
+    private String branch;
+
+    @Min(value = 1, message = "Year must be at least 1")
+    @Max(value = 4, message = "Year cannot be greater than 4")
+    private int year;
 
     public Long getId() {
         return id;
@@ -55,6 +69,5 @@ private int year;
     public void setYear(int year) {
         this.year = year;
     }
-	
 
 }
